@@ -1,0 +1,6 @@
+.vscode
+*.pyc
+*.swp
+*.swo
+__pycache__
+*.sqlite3

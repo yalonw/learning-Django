@@ -1,0 +1,66 @@
+{% extends 'app/base.html' %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link active" href="/">帳務總覽</a></li>
+                <li class="nav-item"><a class="nav-link" href="/settings">分類設定</a></li>            
+            </ul>          
+            </div>
+        </nav>
+  
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">分類設定</h1>
+            </div> 
+
+            <div class="my-4">
+                <form action="/add_category" method="post">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="text" name="add_cateogry" class="form-control" placeholder="請輸入新分類名稱" >
+                        <div class="input-group-append">
+                          <!-- <button class="btn btn-outline-secondary" type="submit">新增分類</button> -->
+                          <input type="submit" value="新增分類" class="btn btn-outline-secondary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                    <th>分類</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr>                        
+                    <td>
+                        <div class="row">
+                        <div class="col-6">{{ category.category }}</div>
+                        <div class="col-6 text-right pr-4">
+                            <a href="/delete_category/{{ category.category }}">刪除</a>                        
+                            <!-- <form method="post" action="/delete_category">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ category.category }}" name="delete_category">
+                                <input type="submit" class="btn btn-link p-0" style="font-size:.875rem" value="刪除">
+                            </form> -->
+                        </div>
+                        </div>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+                   
+        </main>
+
+    </div>
+</div>
+
+{% endblock %}
